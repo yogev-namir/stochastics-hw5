@@ -1,0 +1,36 @@
+zero_shoes_counter=0;
+proportion = zeros();
+n = 100000;
+current_stage=2;
+for day = 1:n
+    p = rand;
+    switch current_stage
+        case 0
+            zero_shoes_counter = zero_shoes_counter+1;
+            if p>0.75
+                current_stage=1;
+            end
+        case 1
+            if p<0.25
+                current_stage = 0;
+            elseif p<0.5
+                current_stage = 2;
+            end
+        case 2
+            if p<0.25
+                current_stage = 1;
+            elseif p<0.5
+                current_stage = 3;
+            end
+        case 3
+            if p>0.75
+                current_stage=2;
+            end
+    end
+    proportion(day) = zero_shoes_counter/day;
+end
+plot(proportion);
+hold on;
+plot(0.25*ones(1,n));
+
+
